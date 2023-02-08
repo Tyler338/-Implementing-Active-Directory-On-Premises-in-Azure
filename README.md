@@ -80,7 +80,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 - Select: "Add a new forest" (mydomain.com or your choice)
 - Choose a Password and make note of this
 - Complete Installation ("Next"; "Next"; "Next"; "Next" and "Install")
-- Allow the server to close, which will disconnect the Remote Desktop.
+- Allow the server to close, which will disconnect the Remote Desktop
 <h2>Restart and then log back into DC-1 as user: mydomain.com\labuser</h2>
 </p>
 
@@ -108,13 +108,43 @@ Add jane_admin to the “Domain Admins” Security Group
 
 <h2>Join Client-1 to your domain (mydomain.com)</h2>
 
+<img src="https://i.imgur.com/Q3RRsrW.png" height="50%" width="50%" alt="Disk Sanitization Steps"/> <img src="https://i.imgur.com/ftdGrtr.png" height="50%" width="50%" alt="Disk Sanitization Steps"/> 
+
+
+
 - From the Azure Portal, set Client-1’s DNS settings to the DC’s Private IP address
 - From the Azure Portal, restart Client-1
 - Login to Client-1 (Remote Desktop) as the original local admin (labuser) and join it to the domain (computer will restart)
 - Login to the Domain Controller (Remote Desktop) and verify Client-1 shows up in Active Directory Users and Computers (ADUC) inside the “Computers” container on the root of the domain
 - Create a new OU named “_CLIENTS” and drag Client-1 into there
 
+<h2>Setup Remote Desktop for non-administrative users on Client-1</h2>
+
+<img src="https://i.imgur.com/EpETgR7.png" height="50%" width="50%" alt="Disk Sanitization Steps"/>
+
+- Log into Client-1 as mydomain.com\jane_doe and open system properties
+- Click “Remote Desktop”
+- Allow “domain users” access to remote desktop
+- You can now log into Client-1 as a normal, non-administrative user
+- Normally you’d want to do this with Group Policy which allows you to change many systems at once
 
 
+<h2>Create random additional users and attempt to login to client-1 with one of the users</h2>
 
+<img src="https://i.imgur.com/ob3dtl0.png" height="60%" width="60%" alt="Disk Sanitization Steps"/>
+
+- Login to DC-1 as jane_admin
+- Open PowerShell_ise as an administrator
+- Create a new File and paste the contents of this [script](https://github.com/joshmadakor1/AD_PS/blob/master/Generate-Names-Create-Users.ps1) into it
+- Run the script and observe the accounts being created
+- Open Active Directory and _EMPLOYEES to see the list of random users being added
+
+<h2>Attempt to log into Client-1 with one of the newly made accounts</h2>
+
+<img src="https://i.imgur.com/gGE4m5l.png" height="60%" width="60%" alt="Disk Sanitization Steps"/> <img src="https://i.imgur.com/xjAgmnm.png" height="30%" width="30%" alt="Disk Sanitization Steps"/>
+
+- Choose a random name, take note of account info
+- Log off of Client-1
+- Log into Client-1, using new account name to test access
+- Congratulations on using Active Directory to create Admins/Users and grant permissions
 
