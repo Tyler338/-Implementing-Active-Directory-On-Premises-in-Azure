@@ -62,7 +62,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 <h2>Install Active Directory</h2>
 
-<img src="https://i.imgur.com/ZHQxtlh.png" height="50%" width="50%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/ZHQxtlh.png" height="70%" width="70%" alt="Disk Sanitization Steps"/>
 
 - Login to DC-1 and install Active Directory Domain Services
 - Install Active Directory Domain Services:
